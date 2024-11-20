@@ -3,8 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_list/util/todo_tile.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  List toDoList = [
+    ["Make tutorial", false],
+    ["Make Youtube", false]
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +35,15 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          TodoTile(
-            taskName: "Make Tutorial",
-            taskComplete: true,
-            onChanged: (p0) {
-            },
-          ),
-          TodoTile(
-            taskName: "Make Dinner",
-            taskComplete: false,
-            onChanged: (p0) {
-            },
-          )
-        ],
+      body: ListView.builder(
+       itemCount: toDoList.length,
+       itemBuilder: (context, index) {  
+         return TodoTile(
+          taskName: toDoList[index][0], 
+          taskComplete: toDoList[index][1], 
+          onChanged: (Value) => checkBoxChange,
+         );
+       },
       )
     );
   }
