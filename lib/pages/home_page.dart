@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_list/util/dialog_page.dart';
 import 'package:flutter_todo_list/util/todo_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,41 +14,55 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List toDoList = [
     ["Make tutorial", false],
+    ["Make Youtube", false],
     ["Make Youtube", false]
   ];
 
-  void checkBoxChange(bool? value, int index){
+  void checkBoxChange(bool? value, int index) {
     setState(() {
       toDoList[index][1] = !toDoList[index][1];
     });
   }
 
+  void createNewTask() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DialogPage();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue[200],
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.blue,
-          title: Center(
-            child: Text(
-              "To Do",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold),
-            ),
+      backgroundColor: Colors.blue[200],
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.blue,
+        title: Center(
+          child: Text(
+            "To Do",
+            style: TextStyle(
+                color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
           ),
         ),
-        body: ListView.builder(
-          itemCount: toDoList.length,
-          itemBuilder: (context, index) {
-            return TodoTile(
-              taskName: toDoList[index][0],
-              taskComplete: toDoList[index][1],
-              onChanged: (value) => checkBoxChange(value, index),
-            );
-          },
-        ));
+      ),
+      body: ListView.builder(
+        itemCount: toDoList.length,
+        itemBuilder: (context, index) {
+          return TodoTile(
+            taskName: toDoList[index][0],
+            taskComplete: toDoList[index][1],
+            onChanged: (value) => checkBoxChange(value, index),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: createNewTask,
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+      ),
+    );
   }
 }
