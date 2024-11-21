@@ -1,28 +1,46 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_typing_uninitialized_variables, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_list/util/Dialog_button.dart';
 
 class DialogPage extends StatelessWidget {
-  const DialogPage({super.key});
+  final controller;
+  VoidCallback onSave;
+  VoidCallback onCancel;
+  
+  DialogPage(
+      {super.key,
+      required this.controller,
+      required this.onSave,
+      required this.onCancel});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.blue[200],
+      backgroundColor: Colors.blue[400],
       content: Container(
-        height: 100,
-        width: 300,
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Add new task"
+          height: 105,
+          width: 300,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), hintText: "Add new task"),
               ),
-            )
-          ],
-        )
-      ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  DialogButton(text: "Save", onPressed: () {}),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  DialogButton(text: "Cancel", onPressed: () {})
+                ],
+              ),
+            ],
+          )),
     );
   }
 }

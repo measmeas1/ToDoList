@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, unused_field
 
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_list/util/dialog_page.dart';
@@ -12,10 +12,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final _controller = TextEditingController();
+
   List toDoList = [
     ["Make tutorial", false],
     ["Make Youtube", false],
-    ["Make Youtube", false]
+    
   ];
 
   void checkBoxChange(bool? value, int index) {
@@ -24,11 +27,21 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void saveTask(){
+    setState(() {
+      toDoList.add([_controller.text, false]);
+    });
+  }
+
   void createNewTask() {
     showDialog(
       context: context,
       builder: (context) {
-        return DialogPage();
+        return DialogPage(
+          controller: _controller,
+          onSave: saveTask,
+          onCancel: () => Navigator.of(context).pop(),
+        );
       },
     );
   }
