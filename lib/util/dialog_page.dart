@@ -32,11 +32,11 @@ class DialogPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  DialogButton(text: "Save", onPressed: () {}),
+                  DialogButton(text: "Save", onPressed: onSave),
                   const SizedBox(
                     width: 8,
                   ),
-                  DialogButton(text: "Cancel", onPressed: () {})
+                  DialogButton(text: "Cancel", onPressed: onCancel)
                 ],
               ),
             ],
